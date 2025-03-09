@@ -31,6 +31,7 @@ void debug_print_fft(complex float *data, uint8_t size){
  * @brief calculates twiddle factor
  * @param k sample number
  * @param N total number of samples
+ * @return twiddle factor
  */
 complex float twiddle_factor(int k, int N)
 {
@@ -42,6 +43,7 @@ complex float twiddle_factor(int k, int N)
  * @brief cooley-tukey FFT divide and conquer 
  * @param data digitized audio data
  * @param size size of data array (2^n)
+ * @return pointer to transformed array
  */
 complex float *fft(complex float *data, uint8_t size)
 {
@@ -82,4 +84,15 @@ complex float *fft(complex float *data, uint8_t size)
 
         return data;
     }
+}
+
+
+/**
+ * @brief inverts fft 
+ * @param data digitized audio data
+ * @param size size of data array (2^n)
+ * @return pointer to reverted array
+ */
+complex float *inverse_fft(complex float *data, uint8_t size){
+    return;
 }

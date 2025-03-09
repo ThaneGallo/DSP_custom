@@ -26,9 +26,19 @@
 //                      Function Declarations
 // ============================================================
 
+//fft functions
+
 void debug_print_fft(complex float *data, uint8_t size);
 complex float twiddle_factor(int k, int N);
 complex float* fft(complex float *data, uint8_t size);
+complex float* inverse_fft(complex float *data, uint8_t size);
+
+//filters 
+
+void low_pass_filter(complex float *data, float freq, uint8_t size);
+void high_pass_filter(complex float *data, float freq, uint8_t size);
+void band_pass_filter(complex float *data, float upper_freq, float lower_freq, uint8_t size);
+void band_stop_filter(complex float *data, float upper_freq, float lower_freq, uint8_t size);
 
 
 // ============================================================
