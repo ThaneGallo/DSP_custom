@@ -1,10 +1,6 @@
 #include "dsp.h"
 
-void main(){
-
-
-
-
-
-    return;
+void main()
+{
+  
 }
