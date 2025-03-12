@@ -34,10 +34,13 @@ complex float* inverse_fft(complex float *data, uint8_t size);
 
 //filters 
 
-void low_pass_filter(complex float *data, float freq, uint8_t size);
-void high_pass_filter(complex float *data, float freq, uint8_t size);
+void low_pass_filter(complex float *data, float freq, float rolloff, uint8_t size);
+void high_pass_filter(complex float *data, float freq, float rolloff, uint8_t size);
 void band_pass_filter(complex float *data, float upper_freq, float lower_freq, uint8_t size);
 void band_stop_filter(complex float *data, float upper_freq, float lower_freq, uint8_t size);
+
+
+//misc utilities
 
 
 // ============================================================
@@ -46,7 +49,7 @@ void band_stop_filter(complex float *data, float upper_freq, float lower_freq, u
 
 #define DSP_MAX_BUFFER_SIZE 32
 
-#define SAMPLE_RATE 256
+#define SAMPLE_RATE 32
 #define BLOCK_LENGTH 0x00
 
 #endif // DSP_H
