@@ -28,8 +28,7 @@
 
 //fft functions
 
-void debug_print_fft(complex float *data, uint8_t size);
-complex float twiddle_factor(int k, int N);
+complex float twiddle_factor(int k, int N, int8_t sign);
 complex float* fft(complex float *data, uint8_t size);
 complex float* inverse_fft(complex float *data, uint8_t size);
 
@@ -47,7 +46,7 @@ void band_stop_filter(complex float *data, float upper_freq, float lower_freq, u
 
 #define DSP_MAX_BUFFER_SIZE 32
 
-#define SAMPLE_RATE 100
+#define SAMPLE_RATE 256
 #define BLOCK_LENGTH 0x00
 
 #endif // DSP_H
