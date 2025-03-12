@@ -106,6 +106,9 @@ void main()
     // low_pass_filter(data_sine_result, 20, 20, sine_size);
     // high_pass_filter(data_sine_result, 20, 10, sine_size);
 
+    // band_pass_filter(data_sine_result, 20, 10, -1, 20, sine_size);
+    // band_stop_filter(data_sine_result, 20, 10, 80, 80, sine_size);
+
     debug_print_fft(data_sine_result, sine_size, SAMPLE_RATE);
 
     // FFT ASSERTS

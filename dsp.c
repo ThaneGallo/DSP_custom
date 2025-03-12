@@ -41,6 +41,13 @@ void low_pass_filter(complex float *data, float cutoff, float rolloff, uint8_t s
     }
 }
 
+/**
+ * @brief uses high pass filter to adjust signal (mimics analog filter)
+ * @param data pointer to transformed signal freq response (post fft)
+ * @param cutoff desired cutoff frequency
+ * @param rolloff desired rate of rolloff (-1 for ideal)
+ * @param size size of signal array 
+ */
 void high_pass_filter(complex float *data, float cutoff, float rolloff, uint8_t size){
     uint8_t i = 0;
     float magnitude_db;
@@ -73,6 +80,63 @@ void high_pass_filter(complex float *data, float cutoff, float rolloff, uint8_t 
 
 
 }
+
+/**
+ * @brief mimics analog band pass filter
+ * @param data pointer to transformed signal freq response (post fft)
+ * @param upper_cutoff desired cutoff for lpf
+ * @param lower_cutoff desired cutoff for hpf
+ * @param hpf_rolloff desired rate of upper rolloff (-1 for ideal)
+ * @param lpf_rolloff desired rate of lower rolloff (-1 for ideal)
+ * @param size size of signal array 
+ */
+void band_pass_filter(complex float *data, float upper_cutoff, float lower_cutoff, float hpf_rolloff, float lpf_rolloff, uint8_t size){
+        //does not need any special ordering like bsp bc the filters do not interact with one another
+        high_pass_filter(data, lower_cutoff, hpf_rolloff, size);
+        low_pass_filter(data, upper_cutoff, lpf_rolloff, size);
+
+}
+
+/**
+ * @brief mimics analog band stop filter
+ * @param data pointer to transformed signal freq response (post fft)
+ * @param upper_cutoff desired cutoff for hpf
+ * @param lower_cutoff desired cutoff for lpf
+ * @param hpf_rolloff desired rate of lower rolloff (-1 for ideal)
+ * @param lpf_rolloff desired rate of higher rolloff (-1 for ideal)
+ * @param size size of signal array 
+ */
+void band_stop_filter(complex float *data, float upper_cutoff, float lower_cutoff, float hpf_rolloff, float lpf_rolloff, uint8_t size){
+        uint8_t i;
+
+        // split then sum
+        complex float *low_pass_data = malloc(sizeof(complex float) * size);
+        complex float *high_pass_data = malloc(sizeof(complex float) * size);
+
+        if(!low_pass_data || !high_pass_data){
+            printf("Low or high pass data is NULL");
+            return;
+        }
+
+        //copies data to new arrays
+        memcpy(low_pass_data, data, sizeof(complex float) * size);
+        memcpy(high_pass_data, data, sizeof(complex float) * size);
+
+
+        low_pass_filter(low_pass_data, lower_cutoff, lpf_rolloff, size);
+        high_pass_filter(high_pass_data, upper_cutoff, hpf_rolloff, size);
+
+        //thanks to handy dandy superposition i can sum to get filter results
+        for(i = 0; i < size; i++){
+            data[i] = low_pass_data[i] + high_pass_data[i];
+        }
+
+        free(low_pass_data);
+        free(high_pass_data);
+
+}
+
+
 
 /**
  * @brief calculates twiddle factor
