@@ -83,10 +83,7 @@ void main()
     complex float *data_sine;
     complex float *data_sine_result = malloc(sizeof(complex float) * sine_size);
 
-    // for (i = 0; i < sine_size; i++)
-    // {
-    //     printf("sine sample %f\n", crealf(data_sine[i]));
-    // }
+
 
     // creates a wave with magnitue 32 at frequwencies 0 --> 31.5
     for (i = 0; i < 32; i++)
@@ -97,19 +94,37 @@ void main()
         data_sine_result = sine_sum(data_sine_result, data_sine, sine_size, sine_size);
     }
 
+        for (i = 0; i < sine_size; i++)
+    {
+        printf("sine sample %f\n", cabsf(data_sine[i]));
+    }
+
+
+    clip_signal(data_sine, 5, -999, sine_size);
+
+    for (i = 0; i < sine_size; i++)
+    {
+        printf("sine sample %f\n", cabsf(data_sine[i]));
+    }
+
+
     // perform ffts
     fft(data_dc_offset, size);
     fft(data_all_real, size);
     fft(data_dc_only, size);
     fft(data_sine_result, sine_size);
 
-    // low_pass_filter(data_sine_result, 20, 20, sine_size);
-    // high_pass_filter(data_sine_result, 20, 10, sine_size);
+    // low_pass_filter_freq(data_sine_result, 20, 20, sine_size);
+    // high_pass_filter_freq(data_sine_result, 20, 10, sine_size);
 
-    // band_pass_filter(data_sine_result, 20, 10, -1, 20, sine_size);
-    // band_stop_filter(data_sine_result, 20, 10, 80, 80, sine_size);
+    // band_pass_filter_freq(data_sine_result, 20, 10, -1, 20, sine_size);
+    // band_stop_filter_freq(data_sine_result, 20, 10, 80, 80, sine_size);
+
+
 
     debug_print_fft(data_sine_result, sine_size, SAMPLE_RATE);
+
+
 
     // FFT ASSERTS
 
