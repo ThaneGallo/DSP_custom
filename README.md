@@ -17,5 +17,6 @@ Ideally all of the below will be supported:
 
 
 Current Implimenation Includes:
-* N/A :3
+* FFT
+* Low and High Pass Filters
 
