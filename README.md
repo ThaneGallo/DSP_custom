@@ -17,14 +17,11 @@ Ideally all of the below will be supported:
 
 
 Current Implimenation Includes:
-
-<<<<<<< FFT
-* Low, High, Bandpass, and Bandstop filters (time and frequency domain)
-* FFT (Tukey-Cooler) and inverse FFT
+* FFT
+* Filters
+* Delay
+* Gain
 
 # Development 
 Initially the library was created with the intention of remainining completely in C and to not support C++, however, due to a desire to practice and learn more about object oriented design and C++ as a whole the main development was swapped. 
-=======
-* FFT
-* Low and High Pass Filters
->>>>>>> main
+
